@@ -6,21 +6,16 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(lib_srcs
-    GCoptimization.cpp
-    GCoptimization.h
-    LinkedBlockList.cpp
-    LinkedBlockList.h
-    block.h
-    energy.h
-    graph.h
+    src/GCoptimization.cpp
+    src/LinkedBlockList.cpp
     )
 
-set(example_srcs
-    example.cpp)
 
 add_library(gco ${lib_srcs})
-add_executable(example ${example_srcs})
-target_link_libraries(example gco)
+target_include_directories(gco
+    PUBLIC
+    ${CMAKE_SOURCE_DIR}/include
+)
 
 install(TARGETS gco
         ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
