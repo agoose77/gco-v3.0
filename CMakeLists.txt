@@ -1,27 +1,50 @@
-project(gco)
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.12)
 
-if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
-endif()
+project(gco
+        LANGUAGES CXX
+        VERSION 0.1
+        HOMEPAGE_URL "https://github.com/agoose77/gco"
+        DESCRIPTION "GCO")
 
-set(lib_srcs
-    src/GCoptimization.cpp
-    src/LinkedBlockList.cpp
-    )
+#
+# Make the default build us c++11 and "RELEASE" (-O3)
+#
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif(NOT CMAKE_BUILD_TYPE)
 
-add_library(gco ${lib_srcs})
+include(GNUInstallDirs)
+
+add_library(gco
+        SHARED
+        src/GCoptimization.cpp
+        src/LinkedBlockList.cpp
+        )
+
 target_include_directories(gco
-    PUBLIC
-    ${CMAKE_SOURCE_DIR}/include
-)
+        PUBLIC
+        # Include directories move depending upon whether building or installing
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        )
 
+# Install the library, recording the targets
 install(TARGETS gco
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
-        LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
-        COMPONENT library)
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-        FILES_MATCHING PATTERN "*.h" PATTERN "*.inl")
+        EXPORT gco-targets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        )
 
+# Install the import script for usage by other libraries
+install(EXPORT gco-targets
+        FILE
+        GCOTargets.cmake
+        NAMESPACE
+        GCO::
+        DESTINATION
+        ${CMAKE_INSTALL_LIBDIR}/cmake/GCO
+        )

@@ -10,7 +10,6 @@
 ##############################################################################
 
   C++ requires at least Visual C++ 2005 (VC8) or GCC 4.03. Supports 32 or 64-bit.
-  See matlab/README.TXT for bundled MATLAB wrapper and its documentation.
 
   IMPORTANT:
   To use this software, YOU MUST CITE the following in any resulting publication:
