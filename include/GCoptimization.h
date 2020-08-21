@@ -167,9 +167,9 @@ namespace GCO {
 #ifdef GCO_ENERGYTYPE32
         typedef int EnergyType;// 32-bit energy total
 #else
-        typedef long long EnergyType;// 64-bit energy total
+        typedef double EnergyType;// 64-bit energy total
 #endif
-        typedef int EnergyTermType;// 32-bit energy terms
+        typedef double EnergyTermType;// 32-bit energy terms
 #endif
         typedef Energy<EnergyTermType, EnergyTermType, EnergyType> EnergyT;
         typedef EnergyT::Var VarID;
