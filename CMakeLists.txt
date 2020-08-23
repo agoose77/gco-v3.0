@@ -39,6 +39,9 @@ install(TARGETS gco
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         )
 
+# Copy headers to destination
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
 # Install the import script for usage by other libraries
 install(EXPORT gco-targets
         FILE
