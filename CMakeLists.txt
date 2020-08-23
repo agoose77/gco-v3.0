@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 project(gco
         LANGUAGES CXX
         VERSION 0.1
-        HOMEPAGE_URL "https://github.com/agoose77/gco"
         DESCRIPTION "GCO")
 
 #
